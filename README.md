@@ -1,1 +1,1 @@
-mahay ranga fiderana , frist-deploy ako , devops 
+mahay ranga fiderana , premier deplyement  en CI/CD ako , devops nilo
