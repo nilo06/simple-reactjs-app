@@ -1,1 +1,1 @@
-fory e
+mahay ranga fiderana , frist-deploy ako , devops 
