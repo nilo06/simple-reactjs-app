@@ -1,5 +1,6 @@
 name: React CI/CD - Déploiement
 
+# Déclenchement à chaque push sur main
 on:
   push:
     branches:
@@ -10,21 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      # 1️⃣ Récupérer le code
+      - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2️⃣ Installer Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+      # 3️⃣ Installer les dépendances
       - name: Installer dépendances
         run: npm install
 
+      # 4️⃣ Construire le projet React
       - name: Build React
         run: npm run build
 
-      - name: Déployer sur GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          publish_dir: ./build
+      # 5️⃣ Copier le contenu build/ dans main/ pour GitHub Pages
+      - name: Déploiement GitHub Pages
+        run: |
+          cp -r build/* .
+          echo "Site déployé depuis main branch pour GitHub Pages"
