@@ -1,34 +1,30 @@
-name: React CI/CD Simple
+name: React CI/CD - Déploiement
 
-# Déclenche le workflow à chaque push sur main
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Récupérer le code
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      # 2️⃣ Installer Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # 3️⃣ Installer les dépendances
-      - name: Install dependencies
+      - name: Installer dépendances
         run: npm install
 
-      # 4️⃣ Build l’application React
-      - name: Build React app
+      - name: Build React
         run: npm run build
 
-      # 5️⃣ Copier le build dans le dossier GitHub Pages
-      # Ici on ne push pas nous-mêmes, GitHub Pages lira automatiquement le dossier `build`
-      - name: Ready for GitHub Pages
-        run: echo "React build ready in ./build"
+      - name: Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./build
